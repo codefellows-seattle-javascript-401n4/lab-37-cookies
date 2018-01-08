@@ -7,23 +7,17 @@ const jwtAuth = require('./lib/JWT-Auth/index');
 
 app.use(express.static(__dirname + '/../bundle/'));
 
-router.get('/signup', jwtAuth.signup, (req, res, next) => {
+app.get('/signup', jwtAuth.signup, (req, res, next) => {
     res.send(req.user);
     next();
 });
 
-router.get('/signin', jwtAuth.signin, (req,res,next) => {
+app.get('/signin', jwtAuth.signin, (req,res,next) => {
     res.send(req.user);
     next();
 });
 
-router.get('/logout', jwtAuth.logout, (req, res, next) => {
-    res.send(req.user);
-    next();
-});
-
-router.get('/update', jwtAuth.update, (req, res, next) => {
-
+app.get('/logout', jwtAuth.logout, (req, res, next) => {
     res.send(req.user);
     next();
 });

@@ -1,31 +1,31 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import {connect} from 'react-redux';
+import { Link, Route, Router } from 'react-router-dom';
 
-import * as actions from '../actions/wizard-action.js';
+import * as actions from '../actions/auth-action.js';
 
-import WizardCreate from './wizardCreate.js';
-import WizardDisplay from './wizardDisplay.js';
+import Home from './Home/Home.js';
+import Content from './Content/Content.js';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-    }
-    componentDidMount() {
-        this.props.init();
-    }
-
-    displayWizards = () => {
-        return Object.keys(this.props.state.wizards).map(id => {
-            return <WizardDisplay key={id} updateWizard={this.props.wizardUpdate} deleteWizard={this.props.wizardDelete} wizard={this.props.state.wizards[id]}/>;
-        });
+        console.log('Initial props: ', props);
     }
 
     render() {
         return (
-            <div>
-                <WizardCreate wizardCreate={this.props.wizardCreate}/>
-                {this.displayWizards()}
+            <div id="base-div">
+
+                <nav>
+                    <Link to="/">Home</Link>
+                </nav>
+
+                <main>
+                    {(this.props.state.auth.loggedIn) ? <Content /> : <Home />}
+                </main>
+                
             </div>
         )
     }
@@ -40,10 +40,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, payload) => {
 
     return {
-        wizardCreate: payload => dispatch(actions.wizardCreate(payload)),
-        wizardUpdate: payload => dispatch(actions.wizardUpdate(payload)),
-        wizardDelete: payload => dispatch(actions.wizardDelete(payload)),
-        init: () => dispatch(actions.initDB())
+        signup: payload => dispatch(actions.auth_signup(payload)),
+        signin: payload => dispatch(actions.auth_signin(payload)),
+        signout: payload => dispatch(actions.auth_signout(payload))
     }
 }
 

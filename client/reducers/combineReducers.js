@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 
-import wizardReducer from './wizard-reducer.js';
+import auth from './auth-reducer.js';
 
 const reducer = combineReducers({
-    wizards: wizardReducer
+    auth
 });
 
 export default reducer;
