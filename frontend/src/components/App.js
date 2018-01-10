@@ -6,6 +6,8 @@ import {Route} from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import Costumes from './Costume/Costumes'
+import Landing from './Authentication/Landing'
+import AuthForm from './Authentication/Auth-Form'
 
 class App extends React.Component {
 
@@ -18,7 +20,9 @@ class App extends React.Component {
       <div>
         <Header appTitle="Costume Inventory" />
         <main>
-          <Route exact path='/' component={Costumes} />
+          <Route exact path='/' component={Landing} />
+          <Route exact path='/signup' component={AuthForm} />
+          <Route exact path='/login' component={AuthForm} />
         </main>
         <Footer>
           <p>Mookerjee Productions 2007</p>

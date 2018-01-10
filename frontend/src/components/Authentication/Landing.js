@@ -1,34 +1,38 @@
 import React from 'react';
 import {renderIf} from '../../../lib/utils';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+
 import AuthForm from './Auth-form';
 import * as auth from './actions';
 
 
 class Landing extends React.Component {
-    
+
+  constructor(props){
+    super(props)
+
+  }
+
   render() {
     
-    let {page} = this.props;
-
     return (
       <div className="landing">
-        {renderIf(page.pathname === '/',
-          <div>
-            <h2>Welcome</h2>
-          </div>
-        )}
-        {renderIf(page.pathname === '/signup',
+        <ul>
+          <li><Link to='/login'>Login</Link></li>
+          <li><Link to='/signup'>Signup</Link></li>
+        </ul>
+        {/* {renderIf(location === 'signup',
           <div>
             <h2>Signup</h2>
-            <AuthForm handler={this.props.handleAuth}/>
+            <AuthForm handler={this.props.signup}/>
           </div>
         )}
-        {renderIf(page.pathname === '/login',
+        {renderIf(location === '/login',
           <div>
             <h2>Login</h2>
           </div>
-        )}
+        )} */}
       </div>
     )     
   }  

@@ -1,6 +1,6 @@
-@import './base';
-
-@import './vars';
+@import './base',
+        './mixins',
+        './vars';
 
 @import './components/header',
         './components/footer',
