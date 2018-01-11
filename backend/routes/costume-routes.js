@@ -1,8 +1,11 @@
 'use strict';
 
-const jsonParser = require('body-parser').json();
 const express = require('express');
 const Costume = require(__dirname + '/../models/costume');
+const User = require(__dirname + '/../models/user');
+
+const bearer = require('../lib/bearer-auth');
+const jsonParser = require('body-parser').json();
 
 const costumeRouter = module.exports = express.Router();
 
@@ -19,13 +22,15 @@ costumeRouter.post('/costumes', jsonParser, (req, res, next) => {
 });
 
 costumeRouter.get('/costumes', (req, res, next) => {
+  console.log('Hi. Late to join the party all')
   let cosObj = req.params || {};
   Costume.find(cosObj)
     .then(costume => res.send(costume))
     .catch(err => next({statusCode: 500, error: err}));
 });
 
-costumeRouter.get('/costume/:id', (req, res, next) => {
+
+costumeRouter.get('/costume/:id', bearer, (req, res, next) => {
   Costume.findOne({_id: req.params.id})
     .then(costume => res.send(costume))
     .catch(err => next({statusCode: 404, message: 'Not Found', error: err}));
