@@ -17,7 +17,7 @@ export const signup = user => (dispatch) => {
 
   return request.post(`${API}/signup`)
     .send(user)
-    .then(res => { return dispatch(tokenSet(res.body.text)) })
+    .then(res => { console.log('res is ', res); return dispatch(tokenSet(res.body.text)) })
     .catch(e => console.error('Authentication Error: ', e.message));
     
 }
@@ -25,7 +25,9 @@ export const signup = user => (dispatch) => {
 export const login = user => (dispatch) => {
 
   let token = cookie.load("creds");
-  if(token) { return dispatch(setToken(token)); }
+  if(token) { 
+    return dispatch(setToken(token));
+  }
 
   return request.get(`${API}/login`)
     .withCredentials()
@@ -35,3 +37,4 @@ export const login = user => (dispatch) => {
 }
 
 export const logout = () => dispatch(removeToken());
+

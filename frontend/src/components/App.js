@@ -1,13 +1,14 @@
 import '../style/main.scss';
 
 import React from 'react';
-import {Route} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 
 import Header from './Header'
 import Footer from './Footer'
+import Dashboard from './Dashboard'
+
 import Costumes from './Costume/Costumes'
 import Landing from './Authentication/Landing'
-import AuthForm from './Authentication/Auth-Form'
 
 class App extends React.Component {
 
@@ -19,14 +20,15 @@ class App extends React.Component {
     return (
       <div>
         <Header appTitle="Costume Inventory" />
+        <Switch>
         <main>
-          <Route exact path='/' component={Landing} />
-          <Route exact path='/signup' component={AuthForm} />
-          <Route exact path='/login' component={AuthForm} />
+          <Route exact path='/' component={Dashboard} />
+          <Route exact path='/signup' component={Landing} />
+          <Route exact path='/login' component={Landing} />
+          <Route exact path='/costumes' component={Costumes} />
         </main>
-        <Footer>
-          <p>Mookerjee Productions 2007</p>
-        </Footer>
+        </Switch>
+        <Footer><p>Mookerjee Productions 2007</p></Footer>
       </div>
     )
   }

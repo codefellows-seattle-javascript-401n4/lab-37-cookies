@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class CostumeCreate extends React.Component {
 
@@ -32,6 +33,7 @@ class CostumeCreate extends React.Component {
 
       <form id="formDefault" onSubmit={this.handleSubmit} >
         <div id="CostumeCreate">
+        <li><Link to='/'>Logout</Link></li>
         <input
           className={this.formState} 
           id="costumeName"
@@ -59,6 +61,8 @@ class CostumeCreate extends React.Component {
          className={this.submitState} 
          value={this.props.submitText}/>
       </form>
+     
+
     )
   }
 
