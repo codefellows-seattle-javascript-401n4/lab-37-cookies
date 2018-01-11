@@ -25,10 +25,20 @@ div#costumeForm {
   width: $description-width;
 }
 
+#logoutButton {
+  position: absolute;
+  padding-left: 1.5em;
+  left: 0;
+  list-style: none;
+}
+
+Link a {
+  text-decoration: none;
+}
 
 input {
   border-radius: 3px;
-  margin-right: .3em; 
+  margin-right: .9em; 
   border:1px solid transparent;
   color: black;
   font-style: bold;   

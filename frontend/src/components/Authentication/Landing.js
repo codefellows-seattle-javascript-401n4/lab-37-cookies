@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import AuthForm from './Auth-form';
 import Costumes from '../Costume/Costumes';
-import * as auth from './actions';
+import * as authActions from './actions';
 
 
 class Landing extends React.Component {
@@ -13,28 +13,46 @@ class Landing extends React.Component {
     super(props)
 
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      authError: false,
+      message: 'Authentication credentials failed!'
     }
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this); 
-
+    this.handleLogout = this.handleLogout.bind(this); 
+    
   }
 
   componentWillMount() {
-    if(this.props.token)
+    if(this.props.auth)
       this.props.history.push('/costumes')
   }
 
   handleLogin(user) {
     this.props.login(user)
-      .then(() => this.history.push('/costumes'))
-      .catch(console.error);
+      .then(() => this.props.history.push('/costumes'))
+      .catch(e => {
+        let authError = true;
+        this.setState({authError});
+        console.error('Authentication Error: ', e.message)
+      });
   }
 
   handleSignup(user) {
     this.props.signup(user)
-    .then(() => this.history.push('/costumes'))
+    .then(() => { this.props.history.push('/costumes')})
+    .catch(e => {
+      let authError = true;
+      let message = 'Error: That user already exists!';      
+      this.setState({authError, message});
+      console.error('Authentication Error: ', e.message)
+    });
+  }
+
+  handleLogout(user) {
+    this.props.logout(user)
+    .then(() => this.props.history.push('/Dashboard'))
     .catch(console.error);
   }
 
@@ -47,13 +65,24 @@ class Landing extends React.Component {
        {renderIf(location.pathname === '/login',
         <div>
           <h3>Login</h3>
-          <AuthForm action='login' handler={this.handleLogin}/>
+          <AuthForm action='login'
+           authError={this.state.authError} 
+           message={this.state.message}
+           handler={this.handleLogin}/>
         </div>
        )}
         {renderIf(location.pathname === '/signup',
         <div>
           <h3>Signup</h3>
-          <AuthForm action='signup' handler={this.handleSignup}/>
+          <AuthForm action='signup'
+           authError={this.state.authError}
+           message={this.state.message}           
+           handler={this.handleSignup}/>
+        </div>
+       )}
+       {renderIf(location.pathname === '/logout',
+        <div>
+          {this.handleLogout}
         </div>
        )}
       </div>
@@ -62,13 +91,13 @@ class Landing extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  creds:state.creds
+  auth:state.auth
 });
   
 const mapDispatchToProps = (dispatch) => ({
-  signup: (user) => dispatch(auth.signup(user)),
-  login: (user) => dispatch(auth.login(user)),
-  logout: (user) => dispatch(auth.logout(user))
+  signup: (user) => dispatch(authActions.signup(user)),
+  login: (user) => dispatch(authActions.login(user)),
+  logout: (user) => dispatch(authActions.logout(user))
 });
   
 export default connect(mapStateToProps,mapDispatchToProps)(Landing);

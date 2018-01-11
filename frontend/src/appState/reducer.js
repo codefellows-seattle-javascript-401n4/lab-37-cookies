@@ -5,5 +5,5 @@ import authReducer from '../components/Authentication/reducer';
 
 export default combineReducers({
   costumes: costumeReducer,
-  creds: authReducer
+  auth: authReducer
 })

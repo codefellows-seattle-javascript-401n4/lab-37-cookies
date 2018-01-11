@@ -32,8 +32,8 @@ class CostumeCreate extends React.Component {
     return (
 
       <form id="formDefault" onSubmit={this.handleSubmit} >
+        <li id="logoutButton"><Link id='logoutLink' to='/'>Logout</Link></li>
         <div id="CostumeCreate">
-        <li><Link to='/'>Logout</Link></li>
         <input
           className={this.formState} 
           id="costumeName"

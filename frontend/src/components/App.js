@@ -23,6 +23,7 @@ class App extends React.Component {
         <Switch>
         <main>
           <Route exact path='/' component={Dashboard} />
+          <Route exact path='/logout' component={Landing} />
           <Route exact path='/signup' component={Landing} />
           <Route exact path='/login' component={Landing} />
           <Route exact path='/costumes' component={Costumes} />

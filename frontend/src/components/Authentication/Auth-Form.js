@@ -2,7 +2,6 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 
-
 let initialState = {
   username: '',
   password: '',
@@ -21,16 +20,10 @@ class AuthForm extends React.Component {
 
   handleChange(e){
     let {name, value} = e.target;
-    console.log('name is ', name);
-    console.log('value is ', value);
-    
-    this.setState({[name]: value})
-    console.log('this.state is ', this.state);
-    
+    this.setState({[name]: value})    
   }
 
   handleSubmit(e){
-    console.log('this.state in Auth-form is ', this.state)
     e.preventDefault();
     this.props.handler(this.state); 
     this.setState(initialState);
@@ -39,33 +32,39 @@ class AuthForm extends React.Component {
   render() {
 
     let action = this.props.action;
+    let didError = this.props.authError === true ? 'authError' : 'success'
+    let message = this.props.message;
     
-    return (
+    return [
+      <span className={didError}>{message}</span>,    
       <form className='authForm' onSubmit={this.handleSubmit}>
       <input
         name='username'
         value={this.state.username}
+        required='true'
         type='text'
         placeholder='username'
-        onChange={this.state.handleChange}
+        onChange={this.handleChange}
         />
        <input
        name='password'
-       value={this.state.password}       
+       value={this.state.password} 
+       required='true'       
        type='password'       
        placeholder='password'
-       onChange={this.state.handleChange}
+       onChange={this.handleChange}
        />
       <input
       name='email'
-      value={this.state.email}      
+      value={this.state.email} 
+      required='true'      
       type='email'       
       placeholder='email'
-      onChange={this.state.handleChange}
+      onChange={this.handleChange}
       />
       <button type='submit'>{action}</button>
      </form>
-    )     
+    ]    
   }  
 }
 
