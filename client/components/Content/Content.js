@@ -6,9 +6,18 @@ class Content extends React.Component {
         super(props);
     }
 
+    handleSignout = (e) => {
+        event.preventDefault();
+        this.props.signout();
+    }
+
     render() {
         return (
-            <div>Content.js</div>
+            <div>
+                Sign Out
+                <button onClick={this.handleSignout}>Sign Out</button>
+
+            </div>
         )
     }
 }

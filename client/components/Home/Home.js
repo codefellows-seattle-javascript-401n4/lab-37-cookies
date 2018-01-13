@@ -1,22 +1,31 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-class Signin extends React.Component {
+import Form from './Form.js';
+import ErrorDisplay from './ErrorDisplay.js'
+
+class Home extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            username: '',
-            password: '',
-            cookie: '',
-            loggedIn: false
-        };
+    }   
+
+    collectFormData = (data) => {
+        if ((data.username === undefined) || (data.password === undefined)) return this.props.error("Please enter a username and password.");
+        
+        (data.signedIn) ? this.props.auth.signup(data) : this.props.auth.signin(data)
     }
+
 
     render() {
         return (
-            <div>Home.js</div>
+            <div>
+                <p>Enter your login information or sign up for an account.</p>
+
+                <Form collect={this.collectFormData}/>
+                <ErrorDisplay message={this.props.state.auth.message}/>
+            </div>
         )
     }
 }
 
-module.exports = Signin;
+module.exports = Home;

@@ -5,20 +5,30 @@ const initialState = {
 export default (state = initialState, action) => {
     let {type, payload} = action;
     let newState = {...state};
-    console.log('Reducer payload: ', payload);
 
     switch(type) {
 
         case 'SIGNUP':
-
+            newState.message = payload.message;
             return newState;
 
         case 'SIGNIN':
-
+            newState.loggedIn = payload.authenticated;
+            newState.message = payload.message;
             return newState;
 
         case 'SIGNOUT':
+            newState.loggedIn = false;
+            delete newState.message;
+            return newState;
 
+        case 'INIT':
+
+            newState.loggedIn = payload;
+            return newState;
+
+        case 'ERROR':
+            newState.message = payload;
             return newState;
 
         default:

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import {connect} from 'react-redux';
-import { Link, Route, Router } from 'react-router-dom';
+import { Link, Route, Router} from 'react-router-dom';
 
 import * as actions from '../actions/auth-action.js';
 
@@ -12,6 +12,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         console.log('Initial props: ', props);
+        props.init();
     }
 
     render() {
@@ -23,7 +24,7 @@ class App extends React.Component {
                 </nav>
 
                 <main>
-                    {(this.props.state.auth.loggedIn) ? <Content /> : <Home />}
+                    {(this.props.state.auth.loggedIn) ? <Content signout={this.props.signout}/> : <Home error={this.props.error} auth={this.props} state={this.props.state}/>}
                 </main>
                 
             </div>
@@ -42,7 +43,9 @@ const mapDispatchToProps = (dispatch, payload) => {
     return {
         signup: payload => dispatch(actions.auth_signup(payload)),
         signin: payload => dispatch(actions.auth_signin(payload)),
-        signout: payload => dispatch(actions.auth_signout(payload))
+        signout: payload => dispatch(actions.auth_signout(payload)),
+        init: () => dispatch(actions.auth_init()),
+        error: message => dispatch(actions.error(message))
     }
 }
 
