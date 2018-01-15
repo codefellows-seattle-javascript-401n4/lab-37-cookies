@@ -10,8 +10,8 @@ const jsonParser = require('body-parser').json();
 const costumeRouter = module.exports = express.Router();
 
 
-costumeRouter.post('/costumes', jsonParser, (req, res, next) => {
-  console.log('post request ????')
+costumeRouter.post('/costumes', jsonParser, bearer, (req, res, next) => {
+  console.log('hi from post /costumes')
   
   let newCostume = new Costume(req.body);
 
@@ -21,8 +21,8 @@ costumeRouter.post('/costumes', jsonParser, (req, res, next) => {
 
 });
 
-costumeRouter.get('/costumes', (req, res, next) => {
-  console.log('Hi. Late to join the party all')
+costumeRouter.get('/costumes', bearer,  (req, res, next) => {
+  console.log('Hi from get /costumes')
   let cosObj = req.params || {};
   Costume.find(cosObj)
     .then(costume => res.send(costume))
@@ -36,7 +36,7 @@ costumeRouter.get('/costume/:id', bearer, (req, res, next) => {
     .catch(err => next({statusCode: 404, message: 'Not Found', error: err}));
 });
 
-costumeRouter.put('/costume/:id', jsonParser, (req, res, next) => {
+costumeRouter.put('/costume/:id', jsonParser, bearer, (req, res, next) => {
 
   if(Object.keys(req.body).length === 0 || !req.params.id) {
     next({statusCode:400, message: 'Bad Request'});
@@ -48,8 +48,8 @@ costumeRouter.put('/costume/:id', jsonParser, (req, res, next) => {
 });
 
 
-costumeRouter.delete('/costume/:id', (req, res, next) => {
-  console.log('hello??????')
+costumeRouter.delete('/costume/:id', bearer, (req, res, next) => {
+  console.log('hello from delete')
   Costume.remove({_id: req.params.id})
     .then(() => res.send('Costume has been deleted'))
     .catch(err => next({statusCode: 500, error: err}));

@@ -10,8 +10,9 @@ mongoose.Promise = Promise;
 mongoose.connect(process.env.DB_URL || 'mongodb://localhost:27017/costumes_prod', {useMongoClient: true});
 
 app.use('*', (req, res, next) => {
-  res.header('Access-Control-Allow-Headers', 'Origin, Authentication, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, Authorization, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Credentials',  true);
+  req.header('Access-Control-Request-Headers', 'Authorization, Content-Type')
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
   res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
   next();

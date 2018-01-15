@@ -20,9 +20,9 @@ authRouter.post('/signup', jsonParser, (req, res, next) => {
 
   (new User(req.body)).generateHash(password)
     .then(user => {
-      console.log('hiiiiiiiiiiii')
       user.save()
       let token = user.generateToken();
+      console.log('token is ', token);
       res.cookie('auth', token, { maxAge: 900000 });
       res.send({user,token});
     })
@@ -31,8 +31,8 @@ authRouter.post('/signup', jsonParser, (req, res, next) => {
 });
 
 authRouter.get('/login', basicHTTP, (req, res, next) => {
-   console.log('I definitely should not be here')
-    User.findOne({username: req.auth.username})
+
+  User.findOne({username: req.auth.username})
       .then(user => {
         if (!user) { 
           next({statusCode: 403, message: 'Invalid Username'});
@@ -49,6 +49,17 @@ authRouter.get('/login', basicHTTP, (req, res, next) => {
       })
       .catch(next);
   
+});
+
+authRouter.get('/validate', bearer, (req, res, next) => {
+  
+  User.findOne({_id: req.user._id})
+    .then(user => {
+      let token = user.generateToken();
+      res.cookie('auth', token, { maxAge: 900000 });
+      res.send({user,token});
+    })
+    .catch(next);
 });
 
 

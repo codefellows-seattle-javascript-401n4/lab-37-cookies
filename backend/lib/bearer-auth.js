@@ -4,15 +4,13 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req,res,next) => {
-  console.log('WHY AM I GETTING CALLED?????')
   
-  // if(!req.headers.authorization){
-  //   console.log('You must authorize!')
-  //   next(401);
-  // }
+  if(!req.headers.authorization){
+    console.log('You must authorize!');
+    next(401);
+  }
 
-  let token = req.headers.Cookie.split('auth=')[1];
-  console.log('token is ', token);
+  let token = req.headers.authorization.split('Bearer ')[1];
   if(!token){
     return next(401);
   }
@@ -25,6 +23,7 @@ module.exports = (req,res,next) => {
     return err ? next(401) : verifiedJwt;
 
   });
+  
   req.userId = decodedToken.id;
   next();
 
