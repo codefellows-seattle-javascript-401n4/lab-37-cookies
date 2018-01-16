@@ -12,3 +12,15 @@
   }
 
 }
+
+.logged-in {
+  border: 1px solid lightgrey;
+  padding: 1em;
+  float: right;
+  height: 20px;
+  background: #FBF9FF;
+
+  p {
+    margin: 0;
+  }
+}

@@ -35,18 +35,31 @@ class LogIn extends React.Component {
   render(){
     return(
       <React.Fragment>
-        <div className="log-in">
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="username">Username:
-              <input type="text" id="username" onChange={this.handleChange} required />
-            </label>
-            <label htmlFor="password">Password:
-              <input type="password" id="password" onChange={this.handleChange} required />
-            </label>
-            <input type="submit" value="Log In" />
-          </form>
-          <button onClick={this.createUser}>Create Profile</button>
-        </div>
+        {renderIf(
+          !this.props.users[0],
+          <div className="log-in">
+            <form onSubmit={this.handleSubmit}>
+              <label htmlFor="username">Username:
+                <input type="text" id="username" onChange={this.handleChange} required />
+              </label>
+              <label htmlFor="password">Password:
+                <input type="password" id="password" onChange={this.handleChange} required />
+              </label>
+              <input type="submit" value="Log In" />
+            </form>
+            <button onClick={this.createUser}>Create Profile</button>
+          </div>
+        )}
+        {renderIf(
+          this.props.users[0],
+          <div className="logged-in">
+            {
+              this.props.users.map( (index, i) => (
+                <p key={i}>Logged in as {index.user.username}</p>
+              ))
+            }
+          </div>
+        )}
       </React.Fragment>
     )
   }
