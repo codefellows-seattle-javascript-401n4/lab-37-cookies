@@ -1,19 +1,14 @@
 .log-in {
-  border: 2px solid black;
-  width: 25%;
-  margin: auto;
-  height: 250px;
-  padding: 2em;
+  border: 1px solid lightgrey;
+  width: 10%;
+  float: right;
+  height: 135px;
+  padding: 1em;
   background: #FBF9FF;
 
-  button {
-    margin: auto;
+  input {
     display: block;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
   }
 
-  p {
-    text-align: center;
-  }
 }

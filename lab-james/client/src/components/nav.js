@@ -9,7 +9,9 @@ class Nav extends React.Component {
   render(){
     return(
       <React.Fragment>
-
+        <ul>
+          <li>Home</li>
+        </ul>
       </React.Fragment>
     )
   }

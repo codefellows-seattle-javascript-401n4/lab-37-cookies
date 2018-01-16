@@ -32,7 +32,7 @@ authRouter.post('/createUser', jsonParser, (req, res, next) => {
       user.save()
         .then(user => {
           console.log('res', res.body);
-          res.send(user.generateToken());
+          res.send(user);
         })
         .catch(err => {
           next(err);
@@ -43,7 +43,7 @@ authRouter.post('/createUser', jsonParser, (req, res, next) => {
     });
 });
 
-authRouter.get('/signin', (req, res, next) => {
+authRouter.get('/findUser', basicHTTP, (req, res, next) => {
   User.findOne({username: req.auth.username})
     .then(user => {
       if(!user){
@@ -52,7 +52,7 @@ authRouter.get('/signin', (req, res, next) => {
 
       user.checkPass(req.auth.password)
         .then(user => {
-          res.send(user.generateToken());
+          res.send(user);
         })
         .catch( () => {
           next({statusCode: 401, message: 'Invalid password'});

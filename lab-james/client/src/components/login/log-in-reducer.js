@@ -7,7 +7,9 @@ export default (state=initialState, action) => {
 
     case 'USER_CREATE': return [...state, payload];
 
+    case 'USER_ASSIGN': return [payload];
+
     default: return state;
-    
+
   }
 };
