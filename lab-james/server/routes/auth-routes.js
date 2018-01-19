@@ -32,7 +32,7 @@ authRouter.post('/createUser', jsonParser, (req, res, next) => {
       user.save()
         .then(user => {
           let token = user.generateToken();
-          res.cookie('auth', token, {maxAge: 900000});
+          res.cookie('auth', token);
           res.send({user, token});
         })
         .catch(err => {
@@ -54,7 +54,7 @@ authRouter.get('/findUser', basicHTTP, (req, res, next) => {
       user.checkPass(req.auth.password)
         .then(user => {
           let token = user.generateToken();
-          res.cookie('auth', token, {maxAge: 900000});
+          res.cookie('auth', token);
           res.send({user, token});
         })
         .catch( () => {
