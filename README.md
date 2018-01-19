@@ -1,6 +1,7 @@
 401 JS --  Lab 37 auth/cookies
 ===
-
+David's Description
+===
 ## Submission Instructions
   * Work in a fork of this repository
   * Work in a branch on your fork
