@@ -1,4 +1,5 @@
 import superagent from 'superagent';
+import cookie from 'react-cookies';
 
 export const userCreate = payload => dispatch => {
   superagent.post(`${__SERVER_URL__}/createUser`)

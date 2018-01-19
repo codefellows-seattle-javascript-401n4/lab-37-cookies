@@ -31,8 +31,9 @@ authRouter.post('/createUser', jsonParser, (req, res, next) => {
     .then(user => {
       user.save()
         .then(user => {
-          console.log('res', res.body);
-          res.send(user);
+          let token = user.generateToken();
+          res.cookie('auth', token);
+          res.send({user, token});
         })
         .catch(err => {
           next(err);
@@ -52,7 +53,9 @@ authRouter.get('/findUser', basicHTTP, (req, res, next) => {
 
       user.checkPass(req.auth.password)
         .then(user => {
-          res.send(user);
+          let token = user.generateToken();
+          res.cookie('auth', token);
+          res.send({user, token});
         })
         .catch( () => {
           next({statusCode: 401, message: 'Invalid password'});
