@@ -1,12 +1,12 @@
-import uuid from 'uuid/v1'
 import superagent from 'superagent';
+import cookie from 'react-cookies';
 
-let API = `${__API_URL__}/api/todo`;
+let API = `${__API_URL__}/todo`;
 
 export const todoInitialize = () => dispatch => {
-    // console.log(API, 'API -actions line 9')
 
     superagent.get(API)
+        .set('Authorization', 'Bearer ' + bearerToken())
         .then(res => dispatch(initAction(res.body)) )
         .catch(console.error);
 
@@ -17,6 +17,7 @@ export const todoCreate = payload => dispatch => {
     // payload._id = uuid();
 
     superagent.post(API)
+        .set('Authorization', 'Bearer ' + bearerToken())
         .send(payload)
         .then(res => dispatch(createAction(res.body)) )
         .catch(console.error);
@@ -28,30 +29,22 @@ export const todoUpdate = payload => dispatch => {
     let URL = `${API}/${payload._id}`;
 
     superagent.put(URL)
+        .set('Authorization', 'Bearer ' + bearerToken())
         .send(payload)
         .then(res => dispatch(updateAction(res.body)) )
         .catch(console.error);
 
-}
+};
 
 export const todoDelete = payload => dispatch => {
 
-    let URL = `${API}/${payload._id}`
+    dispatch( deleteAction(payload) );
 
-    superagent.delete(URL)
-        .send(payload)
-        .then(res => dispatch(deleteAction(res.body)))
-        .catch(console.error);
+};
 
-    // dispatch( deleteAction(payload) );
-
-}
-
-// export const todoDelete = payload => dispatch => {
-
-//     dispatch( deleteAction(payload) );
-
-// }
+const bearerToken = () => {
+    return cookie.load('auth');
+};
 
 const initAction = list => ({
    type: 'INIT',
