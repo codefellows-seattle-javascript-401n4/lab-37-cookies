@@ -9,6 +9,8 @@ export default (state=initialState, action) => {
 
     case 'USER_ASSIGN': return [payload];
 
+    case 'USER_LOGOUT': return initialState;
+
     default: return state;
 
   }

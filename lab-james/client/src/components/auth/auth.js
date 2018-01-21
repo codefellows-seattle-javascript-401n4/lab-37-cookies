@@ -13,7 +13,7 @@ class Auth extends React.Component {
       <React.Fragment>
         {
           renderIf(
-            this.props.users.token,
+            this.props.users[0],
             this.props.children
           )
         }

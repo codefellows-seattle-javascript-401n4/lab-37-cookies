@@ -17,6 +17,12 @@ export const userFind = payload => dispatch => {
     .catch(console.err);
 };
 
+export const userLogOut = () => {
+  return {
+    type: 'USER_LOGOUT',
+  };
+};
+
 const createAction = user => ({
   type: 'USER_CREATE',
   payload: user,

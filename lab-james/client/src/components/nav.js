@@ -1,4 +1,5 @@
 import React from 'react';
+import Auth from './auth/auth.js';
 
 class Nav extends React.Component {
 
@@ -10,7 +11,10 @@ class Nav extends React.Component {
     return(
       <React.Fragment>
         <ul>
-          <li>Home</li>
+          <li><a>Home</a></li>
+          <Auth>
+            <li><a>Lists</a></li>
+          </Auth>
         </ul>
       </React.Fragment>
     )
