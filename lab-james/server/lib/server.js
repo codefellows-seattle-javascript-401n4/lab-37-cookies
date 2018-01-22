@@ -9,7 +9,10 @@ let app = express();
 mongoose.Promise = require('bluebird');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/lab37test', {useMongoClient: true});
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGINS.split(' '),
+  credentials: true,
+}));
 
 app.use(require('../routes/auth-routes.js'));
 
