@@ -6,16 +6,12 @@ import Header from './header.js';
 import Nav from './nav.js';
 import LogIn from './login/log-in.js';
 import Home from './home/home.js';
-import {authInit} from './auth/auth-actions.js';
+import List from './list/list.js';
 
 class App extends React.Component {
 
   constructor(props){
     super(props);
-  }
-
-  componentWillMount(){
-    this.props.handleAuthInit();
   }
 
   render(){
@@ -26,18 +22,11 @@ class App extends React.Component {
         <LogIn />
         <main>
           <Route exact path='/' component={Home} />
+          <Route exact path='/list' component={List} />
         </main>
       </React.Fragment>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  users: state.users
-});
-
-const mapDispatchToProps = (dispatch, getState) => ({
-  handleAuthInit: () => dispatch(authInit())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

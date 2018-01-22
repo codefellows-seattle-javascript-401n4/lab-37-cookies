@@ -1,5 +1,6 @@
 import React from 'react';
 import Auth from './auth/auth.js';
+import {Link} from 'react-router-dom';
 
 class Nav extends React.Component {
 
@@ -11,9 +12,9 @@ class Nav extends React.Component {
     return(
       <React.Fragment>
         <ul>
-          <li><a>Home</a></li>
+          <li><Link to='/'>Home</Link></li>
           <Auth>
-            <li><a>Lists</a></li>
+            <li><Link to='/list'>List</Link></li>
           </Auth>
         </ul>
       </React.Fragment>
