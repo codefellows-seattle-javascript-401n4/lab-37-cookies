@@ -11,7 +11,7 @@ class Nav extends React.Component {
   render(){
     return(
       <React.Fragment>
-        <ul>
+        <ul className="nav">
           <li><Link to='/'>Home</Link></li>
           <Auth>
             <li><Link to='/list'>List</Link></li>

@@ -34,7 +34,13 @@ class List extends React.Component {
             </label>
             <input type="submit" value="Add Item" />
           </form>
-
+          <ul>
+          {
+            this.props.items.map( (item, i) => (
+              <li key={i}>{item}</li>
+            ))
+          }
+          </ul>
         </Auth>
       </React.Fragment>
     )
