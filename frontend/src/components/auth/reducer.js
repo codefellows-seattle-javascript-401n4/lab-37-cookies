@@ -1,7 +1,6 @@
 
 let defaultState = {init:true};
 
-// {token:alsadkfjlsadkjfdsljsdflj}
 
 export default (state=defaultState,action) => {
 

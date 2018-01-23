@@ -18,7 +18,7 @@ class Auth extends React.Component {
     }
 
     render() {
-        
+
         // Cease rendering on the very first load (like a page refresh) to avoid a FOUC
         if ( this.state.init ) { return null; }
 

@@ -1,20 +1,19 @@
 import superagent from 'superagent';
 import cookie from 'react-cookies';
 
-let API = `${__API_URL__}/todo`;
+let API = `${__API_URL__}/api/todo`;
 
 export const todoInitialize = () => dispatch => {
 
     superagent.get(API)
         .set('Authorization', 'Bearer ' + bearerToken())
-        .then(res => dispatch(initAction(res.body)) )
+        .then(res =>  dispatch(initAction(res.body)) )
         .catch(console.error);
 
 }
 
 export const todoCreate = payload => dispatch => {
 
-    // payload._id = uuid();
 
     superagent.post(API)
         .set('Authorization', 'Bearer ' + bearerToken())

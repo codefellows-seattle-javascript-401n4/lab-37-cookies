@@ -4,6 +4,7 @@ import cookie from 'react-cookies';
 export const authLogin = (user={}) => dispatch => {
 
     let token = cookie.load("auth");
+    console.log(token);
     
     let authMethod = () => authenticateUsingBasic(user);
     
@@ -29,6 +30,7 @@ let authenticateUsingBasic = user => {
     return superagent.get(`${__AUTH_URL__}/login`)
         .withCredentials()
         .auth(user.username, user.password);
+        console.log(__AUTH_URL__);
 };
 
 

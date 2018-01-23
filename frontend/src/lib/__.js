@@ -4,7 +4,7 @@ import superagent from 'superagent';
 
 export const activeProps = (config) => Object.keys(config).filter( key => config[key] );
 
-export const renderIf = (test, component) => test ? component : undefined;
+export const renderIf = (test, componentTrue, componentFalse) => test ? componentTrue : componentFalse || null;
 
 export const fetchData = (url) => {
 

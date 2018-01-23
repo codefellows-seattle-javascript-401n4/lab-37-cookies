@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {connect} from 'react-redux';
-import * as actions from './actions'
+// import * as actions from './actions'
 
 import Auth from '../auth';
 
@@ -42,9 +42,7 @@ const mapStateToProps = state => ({
    profile:state.profile
 });
 
-const mappDispatchToProps = (dispatch, getState) => ({
-    updateProfile: user => dispatch(actions.updateProfile(user)),
-    deleteProfile: user => dispatch(actions.deleteProfile(user))
+const mapDispatchToProps = (dispatch, getState) => ({
 });
 
-export default connect(mapStateToProps,mappDispatchToProps)(Profile);
+export default connect(mapStateToProps,mapDispatchToProps)(Profile);
