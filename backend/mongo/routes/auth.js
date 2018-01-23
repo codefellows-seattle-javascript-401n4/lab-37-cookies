@@ -36,7 +36,7 @@ authRouter.get('/auth/login', basicHTTP, (req, res, next) => {
         .then(user => {
 
             if (!user) {
-                next({statusCode: 403, message: 'Invalid Username'});
+               return next({statusCode: 403, message: 'Invalid Username'});
             }
 
             user.comparePassword(req.auth.password)

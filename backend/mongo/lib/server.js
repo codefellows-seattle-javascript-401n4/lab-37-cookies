@@ -11,10 +11,16 @@ let http = null;
 let isRunning = false;
 
 app.use(morgan('dev'));
-app.use(cors());
+app.use(
+    cors({
+        origin: process.env.CORS_ORIGINS.split(' '),
+        credentials: true,
+    })
+);
 
 // Our Routes
 app.use(require("../routes/api"));
+app.use(require("../routes/auth"));
 
 // 404 Handler
 app.use("*", (req,res,next) => {
@@ -28,7 +34,6 @@ module.exports = {
 
     start: (port) => {
         let usePort = port || process.env.SERVER_PORT;
-        console.log("Trying Port", process.env.SERVER_PORT);
         if ( isRunning ) {
             throw Error ("Server is already running");
         }

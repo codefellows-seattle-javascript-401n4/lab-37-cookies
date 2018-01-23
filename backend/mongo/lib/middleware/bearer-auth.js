@@ -5,7 +5,6 @@ const User = require(__dirname + "/../../models/user");
 
 module.exports = (req,res,next) => {
 
-   
     if ( ! req.headers.authorization ) {
         throw new Error("You must authorize");
     }
@@ -13,7 +12,7 @@ module.exports = (req,res,next) => {
     if ( ! token ) {
         throw new Error("Invalid Authorization Provided");
     }
-
+    console.log('working');
     let secret = process.env.SECRET || "changethis";
     let decodedToken = jwt.verify(token, secret);
     req.userId = decodedToken.id;

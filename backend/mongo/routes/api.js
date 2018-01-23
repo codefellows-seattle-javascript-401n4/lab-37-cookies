@@ -11,7 +11,7 @@ const models = requireDir(__dirname + '/../models/');
 const apiRouter = module.exports = express.Router();
 
 apiRouter.get('/api/:model', bearerAuth, (req,res,next) => {
-
+    // console.log(r);
     try {
 
         let model = getModel(req);
@@ -19,6 +19,13 @@ apiRouter.get('/api/:model', bearerAuth, (req,res,next) => {
         model.find({})
             .then( records => res.send(records) )
             .catch(next);
+
+        // model.find({})
+        //     .then(v => {
+        //         console.log(v);
+        //         console.log('sdfsdfs')
+        //         res.end();
+        //     });
 
 
     }
