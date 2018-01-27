@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import * as fileDataActions from '../../state/file-data/actions';
 
+import Auth from '../Auth';
 import FileDataForm from '../../components/file-data-form';
 import FileDataDisplay from '../../components/file-data-display';
 
@@ -24,14 +25,14 @@ class FileData extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <Auth showForm="true">
         <FileDataForm submitHandler={fileDataCreate} type="creator" />
         <FileDataDisplay
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
           fileDateUpdate={fileDateUpdate}
         />
-      </div>
+      </Auth>
     );
   }
 }

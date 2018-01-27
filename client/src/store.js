@@ -4,14 +4,19 @@ import {
   createStore,
 } from 'redux';
 
-import { fileData } from './state';
+import {
+  auth,
+  fileData,
+  middleware,
+} from './state';
 
 const reducers = {
   fileData: fileData.reducer,
+  auth: auth.reducer,
 };
 
 const rootReducer = combineReducers(reducers);
 
-const store = createStore(rootReducer, applyMiddleware(fileData.reporter, fileData.thunk));
+const store = createStore(rootReducer, applyMiddleware(middleware.reporter, middleware.thunk));
 
 export default store;

@@ -5,7 +5,8 @@ const User = require(__dirname + '/model');
 let userHandler = module.exports = {};
 
 userHandler.getUserByName = (req, res, next) => {
-  User.findOne({name: req.auth.username})
+
+  User.findOne({username: req.auth.username})
     .then(user => {
       if (!user) {
         return next({statusCode: 400, message: 'no user'});
@@ -17,6 +18,7 @@ userHandler.getUserByName = (req, res, next) => {
 };
 
 userHandler.getUserById = (req, res, next) => {
+
   User.findOne({_id: req.decodedId})
     .then(user => {
       if (!user) {
@@ -29,12 +31,14 @@ userHandler.getUserById = (req, res, next) => {
 };
 
 userHandler.signIn = (req, res, next) => {
+
   req.user.comparePassword(req.auth.password)
     .then(user => {
       if (user instanceof Error) {
         next({statusCode: 401, message: user.message});
       }
       let token = user.generateToken();
+      console.log('__token__', token);
       res.cookie('auth', token, { maxAge: 900000 });
       res.send({user,token});
     })
@@ -52,10 +56,24 @@ userHandler.createUser = (req, res, next) => {
       user.save()
         .then(user => {
           let token = user.generateToken();
+          console.log('__token__', token);
           res.cookie('auth', token, { maxAge: 900000 });
           res.send(token);
         })
-        .catch(err => next({statusCode: 400, message: err.message}));
+        .catch(err => {
+          next({statusCode: 400, message: err.message});
+        });
     })
     .catch(err => next({statusCode: 400, message: err.message}));
+};
+
+userHandler.validate = (req, res, next) => {
+
+  User.findOne({_id: req.user._id})
+    .then(user => {
+      let token = user.generateToken();
+      res.cookie('auth', token, { maxAge: 900000 });
+      res.send({user,token});
+    })
+    .catch(next);
 };

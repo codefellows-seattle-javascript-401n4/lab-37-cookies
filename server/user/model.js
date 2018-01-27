@@ -6,7 +6,7 @@ const bcrypt = require('bluebird').promisifyAll(require('bcrypt'));
 const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
-  name: {type: String, required: true, unique: true},
+  username: {type: String, required: true},
   group: {type: String},
   password : {type: String, require: true},
   email : {type: String},
@@ -32,11 +32,12 @@ userSchema.methods.comparePassword = function(password) {
 };
 
 userSchema.methods.generateToken = function(){
+  console.log('jwt: ' , jwt.sign({ _id: this._id}, process.env.APP_SECRET));
   return jwt.sign({ _id: this._id}, process.env.APP_SECRET);
 };
 
 userSchema.methods.getAuthorizationLevel = function(){
-  
+
 };
 
 

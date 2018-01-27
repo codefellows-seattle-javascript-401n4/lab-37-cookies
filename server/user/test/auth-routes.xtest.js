@@ -34,7 +34,7 @@ describe('user auth', () => {
   describe('signup', () => {
 
     test('it should create a user', () => {
-      let testdata = new User({name:'name', password: 'test'});
+      let testdata = new User({username:'name', password: 'test'});
       return request
         .post(urlsignup)
         .send(testdata)

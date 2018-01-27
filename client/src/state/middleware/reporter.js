@@ -1,10 +1,6 @@
+
 /* global __DEBUG__ */
-
-export const thunk = store => next => action => (typeof action === 'function'
-  ? action(store.dispatch, store.getState)
-  : next(action));
-
-export const reporter = store => next => (action) => {
+export default store => next => (action) => {
   try {
     const result = next(action);
     if (__DEBUG__) { console.log('__STATE__', store.getState()); }

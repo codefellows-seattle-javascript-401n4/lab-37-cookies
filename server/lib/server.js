@@ -9,10 +9,15 @@ const userRouter = require(__dirname + '/../user/user-routes');
 const authRouter = require(__dirname + '/../user/auth-routes');
 
 app.use(morgan('dev'));
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGINS.split(' '),
+    credentials: true,
+  })
+);
 
 app.use('/api/v1', fileDataRouter);
-app.use('/api/v1', authRouter);
+app.use('', authRouter);
 app.use('/api/v1', userRouter);
 
 app.use((err, req, res, next) => {
