@@ -68,7 +68,7 @@ class AuthForm extends React.Component {
 
         <form onSubmit={this.handleSubmit} data-handler="login" className="auth-form">
 
-          <h2>Existing Users, Login</h2>
+          <h2>Sign in</h2>
 
           {username}
           {password}
@@ -80,7 +80,7 @@ class AuthForm extends React.Component {
 
         <form onSubmit={this.handleSubmit} data-handler="signup" className="auth-form">
 
-          <h2>New Users, Create an Account</h2>
+          <h2>Sign up</h2>
 
           <label htmlFor="email">
             <span>Email Address</span>

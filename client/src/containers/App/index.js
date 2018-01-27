@@ -14,7 +14,6 @@ export default class App extends React.Component {
             <FileData />
           </Auth>
         </main>
-
         <footer />
       </div>
     );

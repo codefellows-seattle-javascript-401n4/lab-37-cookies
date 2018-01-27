@@ -90,7 +90,7 @@ fileRouter.delete(
   (req, res, next) => {
     console.log(req.params);
     FileData.find({_id: req.params.id})
-      .then( file => {
+      .then( () => {
         // if (file.user != req.user._id) {
         //   return next({statusCode: 403, message: 'you dont have authority to delete someone elses file'});
         // }

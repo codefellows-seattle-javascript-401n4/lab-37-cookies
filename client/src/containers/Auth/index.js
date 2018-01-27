@@ -22,8 +22,7 @@ class Auth extends React.Component {
   renderAuthForm() {
     const { auth } = this.props;
     return auth.token ?
-      null
-      : (<AuthForm handleCreate={this.props.authCreate} handleLogin={this.props.authLogin} />);
+      null : (<AuthForm handleCreate={this.props.authCreate} handleLogin={this.props.authLogin} />);
   }
 
   renderChildren() {
@@ -34,7 +33,6 @@ class Auth extends React.Component {
   render() {
     if (this.state.init) { return null; }
     return (
-
       <React.Fragment>
         {this.renderChildren()}
         {this.renderAuthForm()}
