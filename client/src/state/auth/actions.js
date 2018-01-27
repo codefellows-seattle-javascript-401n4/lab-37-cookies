@@ -3,16 +3,23 @@
 import superagent from 'superagent';
 import cookie from 'react-cookies';
 
-const setUser = auth => ({
-  type: 'SET_AUTH_USER',
-  payload: auth,
-});
+const setUser = (auth) => {
+  console.log('set user', auth);
+  return ({
+    type: 'SET_AUTH_USER',
+    payload: auth,
+  });
+};
 
 export const authLogin = (user = {}) => (dispatch) => {
   const cookieToken = cookie.load('auth');
+  console.log('cookieToken', cookieToken);
 
-  const authenticateUsingToken = token => superagent.get(`${__AUTH_URL__}/validate`)
-    .set('Authorization', `Bearer ${token}`);
+  const authenticateUsingToken = (token) => {
+    console.log(token);
+    return superagent.get(`${__AUTH_URL__}/validate`)
+      .set('Authorization', `Bearer ${token}`);
+  };
 
   const authenticateUsingBasic = newUser => superagent.get(`${__AUTH_URL__}/signin`)
     .withCredentials()
@@ -24,7 +31,8 @@ export const authLogin = (user = {}) => (dispatch) => {
 
   return authMethod()
     .then((res) => {
-      dispatch(setUser(res.text));
+      console.log(res.body);
+      dispatch(setUser(res.body));
       return res;
     })
     .catch(e => console.error('Authenticaton Error:', e.message));
@@ -34,8 +42,8 @@ export const authCreateAccount = user => dispatch => superagent.post(`${__AUTH_U
   .withCredentials()
   .send(user)
   .then((res) => {
-    console.log(res);
-    dispatch(setUser(res.text));
+    console.log(res.body);
+    dispatch(setUser(res.body));
     return res;
   })
   .catch(e => console.error('Authenticaton Error:', e.message));

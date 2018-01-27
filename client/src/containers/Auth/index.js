@@ -7,7 +7,7 @@ import AuthForm from '../../components/auth-form';
 class Auth extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log('props.auth', props.auth);
     this.renderChildren = this.renderChildren.bind(this);
     this.renderAuthForm = this.renderAuthForm.bind(this);
 
