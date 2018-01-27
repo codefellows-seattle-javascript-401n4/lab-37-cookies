@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import * as authActions from '../../state/auth/actions';
 import AuthForm from '../../components/auth-form';
@@ -53,5 +54,13 @@ const mapDispatchToProps = dispatch => ({
   authCreate: user => dispatch(authActions.authCreateAccount(user)),
   authLogout: () => dispatch(authActions.authLogout()),
 });
+
+Auth.propTypes = {
+  children: PropTypes.node.isRequired,
+  authLogin: PropTypes.func.isRequired,
+  authCreate: PropTypes.func.isRequired,
+  authLogout: PropTypes.func.isRequired,
+  auth: PropTypes.shape({ token: PropTypes.string }).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

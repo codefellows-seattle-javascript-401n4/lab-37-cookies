@@ -53,6 +53,7 @@ export const update = payload => (dispatch) => {
 export const remove = id => (dispatch) => {
   const url = `${API}/${id}`;
   superagent.delete(url)
+    .set('Authorization', `Bearer ${bearerToken()}`)
     .then(res => dispatch(deleteAction(res.body)))
     .catch(console.error);
 };

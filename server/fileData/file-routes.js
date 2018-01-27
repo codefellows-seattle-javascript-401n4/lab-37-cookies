@@ -83,16 +83,17 @@ fileRouter.put(
   });
 
 fileRouter.delete(
-  '/visual_files',
+  '/visual_files/:id',
   bearerAuth,
   userHandler.getUserById,
   jsonParser,
   (req, res, next) => {
+    console.log(req.params);
     FileData.find({_id: req.params.id})
       .then( file => {
-        if (file.user != req.user._id) {
-          return next({statusCode: 403, message: 'you dont have authority to delete someone elses file'});
-        }
+        // if (file.user != req.user._id) {
+        //   return next({statusCode: 403, message: 'you dont have authority to delete someone elses file'});
+        // }
         FileData.remove({_id: req.params.id})
           .then(() => res.status(200).send('metadata successfully deleted'))
           .catch((err) => {

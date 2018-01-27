@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -109,9 +110,8 @@ class AuthForm extends React.Component {
 }
 
 AuthForm.propTypes = {
-  // toDisplay: PropTypes.arrayOf(PropTypes.shape(FileDataType)).isRequired,
-  // fileDataDelete: PropTypes.func.isRequired,
-  // fileDateUpdate: PropTypes.func.isRequired,
+  handleCreate: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired,
 };
 
 export default AuthForm;
