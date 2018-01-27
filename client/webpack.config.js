@@ -20,7 +20,6 @@ const plugins = [
   }),
 ];
 
-console.log(process.env.API_URL);
 module.exports = {
 
   plugins,

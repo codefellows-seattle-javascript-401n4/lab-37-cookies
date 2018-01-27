@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  console.log('bearer auth', req.headers.authorization);
   if (! req.headers.authorization) {
     throw new Error('must authorize');
   }

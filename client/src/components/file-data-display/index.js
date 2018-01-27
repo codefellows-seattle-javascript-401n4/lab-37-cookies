@@ -13,7 +13,6 @@ class FileDataDisplay extends React.Component {
 
   handleDelete(event) {
     const { fileDataDelete } = this.props;
-    console.log(event.target.id);
     fileDataDelete(event.target.id);
   }
 

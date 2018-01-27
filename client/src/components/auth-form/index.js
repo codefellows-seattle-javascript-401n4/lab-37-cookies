@@ -108,4 +108,10 @@ class AuthForm extends React.Component {
   }
 }
 
+AuthForm.propTypes = {
+  // toDisplay: PropTypes.arrayOf(PropTypes.shape(FileDataType)).isRequired,
+  // fileDataDelete: PropTypes.func.isRequired,
+  // fileDateUpdate: PropTypes.func.isRequired,
+};
+
 export default AuthForm;

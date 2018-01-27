@@ -7,7 +7,6 @@ import AuthForm from '../../components/auth-form';
 class Auth extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props.auth', props.auth);
     this.renderChildren = this.renderChildren.bind(this);
     this.renderAuthForm = this.renderAuthForm.bind(this);
 
@@ -20,15 +19,15 @@ class Auth extends React.Component {
   }
 
   renderAuthForm() {
-    const { showForm } = this.props;
-    return showForm ? (
-      <AuthForm handleCreate={this.props.authCreate} handleLogin={this.props.authLogin} />
-    ) : null;
+    const { auth } = this.props;
+    return auth.token ?
+      null
+      : (<AuthForm handleCreate={this.props.authCreate} handleLogin={this.props.authLogin} />);
   }
 
   renderChildren() {
-    const { token, children } = this.props;
-    return token ? children : null;
+    const { auth, children } = this.props;
+    return auth.token ? children : null;
   }
 
   render() {
@@ -49,7 +48,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
-const mapDispatchToProps = (dispatch, getState) => ({
+const mapDispatchToProps = dispatch => ({
   authLogin: user => dispatch(authActions.authLogin(user)),
   authCreate: user => dispatch(authActions.authCreateAccount(user)),
   authLogout: () => dispatch(authActions.authLogout()),

@@ -38,8 +38,7 @@ userHandler.signIn = (req, res, next) => {
         next({statusCode: 401, message: user.message});
       }
       let token = user.generateToken();
-      console.log('__token__', token);
-      res.cookie('auth', token, { maxAge: 900000 });
+      res.cookie('auth', token, { maxAge: 10000000 });
       res.send({user,token});
     })
     .catch(err =>
@@ -56,8 +55,7 @@ userHandler.createUser = (req, res, next) => {
       user.save()
         .then(user => {
           let token = user.generateToken();
-          console.log('__token__', token);
-          res.cookie('auth', token, { maxAge: 900000 });
+          res.cookie('auth', token, { maxAge: 10000000 });
           res.send(token);
         })
         .catch(err => {

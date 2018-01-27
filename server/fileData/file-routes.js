@@ -15,13 +15,21 @@ function errorCheck(err, body){
   return error;
 }
 
-fileRouter.get('/visual_files', bearerAuth, userHandler.getUserById, (req, res, next) => {
+fileRouter.get(
+  '/visual_files',
+  bearerAuth,
+  userHandler.getUserById,
+  (req, res, next) => {
   // let findObject = req.query || {};
-  let findObject = {user: req.user._id};
-  FileData.find(findObject)
-    .then(files => res.status(200).send(files))
-    .catch(err => next(new ServerError (404, 'cant find what you are looking for', err)));
-});
+    let findObject = {};
+    FileData.find(findObject)
+      .then(files => {
+        res.status(200).send(files);
+      })
+      .catch(err => {
+        next(new ServerError (404, 'cant find what you are looking for', err));
+      });
+  });
 
 fileRouter.get('/visual_files/:id', (req, res, next) => {
   FileData.findOne({_id : req.params.id})
@@ -32,11 +40,9 @@ fileRouter.get('/visual_files/:id', (req, res, next) => {
 fileRouter.post('/visual_files', bearerAuth, userHandler.getUserById, jsonParser, (req, res, next) => {
   req.body.userId = req.user._id;
   let newFileData = new FileData(req.body);
-  console.log(newFileData);
   newFileData.save() // saves the file to the database
     .then(data => res.status(200).send(data))
     .catch((err) => {
-      console.log(err);
       next(errorCheck(err, newFileData));
     });
 });

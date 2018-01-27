@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FileData from '../FileData';
+import Auth from '../Auth';
 
 export default class App extends React.Component {
   render() {
@@ -9,7 +10,9 @@ export default class App extends React.Component {
         <header> Visual Files
         </header>
         <main>
-          <FileData />
+          <Auth>
+            <FileData />
+          </Auth>
         </main>
 
         <footer />

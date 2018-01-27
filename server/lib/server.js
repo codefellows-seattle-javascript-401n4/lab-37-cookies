@@ -17,7 +17,7 @@ app.use(
 );
 
 app.use('/api/v1', fileDataRouter);
-app.use('', authRouter);
+app.use('/api/v1', authRouter);
 app.use('/api/v1', userRouter);
 
 app.use((err, req, res, next) => {
