@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
+    "mongo": "mongod --dbpath=./db --smallfiles",
     "test": "jest -i --coverage",
     "lint": "eslint --fix ."
   },
