@@ -4,8 +4,8 @@ const express = require('express');
 const jsonParser = require('body-parser').json();
 const FileData = require('./model');
 const ServerError = require('../lib/error');
-// const bearerAuth = require('../lib/bearer-auth');
-// const userHandler = require('../user/user-auth-middleware');
+const bearerAuth = require('../lib/bearer-auth');
+const userHandler = require('../user/user-auth-middleware');
 
 const fileRouter = module.exports = express.Router();
 
@@ -15,8 +15,9 @@ function errorCheck(err, body){
   return error;
 }
 
-fileRouter.get('/visual_files', (req, res, next) => {
-  let findObject = req.query || {};
+fileRouter.get('/visual_files', bearerAuth, userHandler.getUserById, (req, res, next) => {
+  // let findObject = req.query || {};
+  let findObject = {user: req.user._id};
   FileData.find(findObject)
     .then(files => res.status(200).send(files))
     .catch(err => next(new ServerError (404, 'cant find what you are looking for', err)));
@@ -28,8 +29,8 @@ fileRouter.get('/visual_files/:id', (req, res, next) => {
     .catch(err => next(new ServerError (404, 'cant find what you are looking for', err)));
 });
 
-fileRouter.post('/visual_files', jsonParser, (req, res, next) => {
-  // req.body.userId = req.user._id;
+fileRouter.post('/visual_files', bearerAuth, userHandler.getUserById, jsonParser, (req, res, next) => {
+  req.body.userId = req.user._id;
   let newFileData = new FileData(req.body);
   console.log(newFileData);
   newFileData.save() // saves the file to the database
@@ -40,20 +41,29 @@ fileRouter.post('/visual_files', jsonParser, (req, res, next) => {
     });
 });
 
-fileRouter.patch('/visual_files/:id', jsonParser, (req, res, next) => {
-  let newFileData = new FileData(req.body);
+fileRouter.patch(
+  '/visual_files/:id',
+  bearerAuth,
+  userHandler.getUserById,
+  jsonParser,
+  (req, res, next) => {
 
-  delete newFileData._id;
-  FileData.findOneAndUpdate({_id : req.params.id}, {$set:newFileData})
-    .then(() => res.status(200).send('success!'))
-    .catch((err) => {
-      next(errorCheck(err, newFileData));
-    });
-});
+    let newFileData = new FileData(req.body);
+
+    delete newFileData._id;
+    FileData.findOneAndUpdate({_id : req.params.id}, {$set:newFileData})
+      .then(() => res.status(200).send('success!'))
+      .catch((err) => {
+        next(errorCheck(err, newFileData));
+      });
+  });
 
 fileRouter.put(
   '/visual_files/',
-  jsonParser, (req, res, next) => {
+  bearerAuth,
+  userHandler.getUserById,
+  jsonParser,
+  (req, res, next) => {
     let newFileData = Object.assign({}, req.body);
     newFileData._id = null;
     delete newFileData._id;
@@ -66,12 +76,22 @@ fileRouter.put(
       });
   });
 
-fileRouter.delete('/visual_files/:id', (req, res, next) => {
-  FileData.remove({_id: req.params.id})
-    .then(() => res.status(200).send('metadata successfully deleted'))
-    .catch((err) => {
-      console.log(err);
-      next(errorCheck(err, req.body));
+fileRouter.delete(
+  '/visual_files',
+  bearerAuth,
+  userHandler.getUserById,
+  jsonParser,
+  (req, res, next) => {
+    FileData.find({_id: req.params.id})
+      .then( file => {
+        if (file.user != req.user._id) {
+          return next({statusCode: 403, message: 'you dont have authority to delete someone elses file'});
+        }
+        FileData.remove({_id: req.params.id})
+          .then(() => res.status(200).send('metadata successfully deleted'))
+          .catch((err) => {
+            next(errorCheck(err, req.body));
+          });
 
-    });
-});
+      });
+  });

@@ -34,20 +34,26 @@ userHandler.signIn = (req, res, next) => {
       if (user instanceof Error) {
         next({statusCode: 401, message: user.message});
       }
-      res.send(user.generateToken());
+      let token = user.generateToken();
+      res.cookie('auth', token, { maxAge: 900000 });
+      res.send({user,token});
     })
     .catch(err =>
       next({statusCode: 403, message: err.message}));
 };
 
 userHandler.createUser = (req, res, next) => {
+
   const password = req.body.password;
   delete req.body.password;
+
   (new User(req.body)).generateHash(password)
     .then((user) => {
       user.save()
         .then(user => {
-          res.send(user.generateToken());
+          let token = user.generateToken();
+          res.cookie('auth', token, { maxAge: 900000 });
+          res.send(token);
         })
         .catch(err => next({statusCode: 400, message: err.message}));
     })
