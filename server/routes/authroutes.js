@@ -4,7 +4,7 @@ const User = require(__dirname + '/../models/user.js');
 const basicHTTP = require(__dirname + '/../lib/middleware/basicHttp.js');
 const bearerAuth = require(__dirname + '/../lib/middleware/bearAuth.js');
 const jsonParser = require('body-parser').json();
-
+const jwt = require('jsonwebtoken');
 const authRouter = module.exports = require('express').Router();
 
 authRouter.post('/auth/create', jsonParser, (req, res, next) => {
@@ -19,6 +19,7 @@ authRouter.post('/auth/create', jsonParser, (req, res, next) => {
     .then((user) => {
       user.save()
         .then( user => {
+          console.log('user', user);
           let token = user.generateToken();
           res.cookie('auth', token, { maxAge: 900000 });
           res.send({user,token});
@@ -54,9 +55,12 @@ authRouter.get('/auth/login', basicHTTP, (req, res, next) => {
 });
 
 authRouter.get('/auth/validate', bearerAuth, (req, res, next) => {
-
-  User.findOne({_id: req.user._id})
+  User.findOne({_id: req.userId})
     .then(user => {
+      console.log('made it')
+      if(!user){
+        throw new Error('user not found');
+      }
       let token = user.generateToken();
       res.cookie('auth', token, { maxAge: 900000 });
       res.send({user,token});

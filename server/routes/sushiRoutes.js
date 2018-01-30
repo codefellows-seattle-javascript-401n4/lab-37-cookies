@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser').json();
 
 
-const Sushi = require('../models/sushiSchema.js');
+const Sushi = require('../models/sushi.js');
 
 
 const sushiRouter = module.exports = express.Router();

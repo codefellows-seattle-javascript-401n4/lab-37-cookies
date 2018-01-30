@@ -1,61 +1,10 @@
 'use strict';
 
-const morgan = require('morgan');
+
+const jsonParser = require('body-parser');
+const mongoose = require('mongoose');
 const cors = require('cors');
-
-// expressy stuff
-const express = require('express');
-let app = express();
-
-let http = null;
-let isRunning = false;
-
-app.use(morgan('dev'));
-app.use(
-    cors({
-        origin: process.env.CORS_ORIGINS.split(' '),
-        credentials: true,
-    })
-);
-
-// Our Routes
-app.use(require("../routes/api"));
-app.use(require("../routes/auth"));
-
-// 404 Handler
-app.use("*", (req,res,next) => {
-   res.sendStatus(404);
-   next();
-});
-
-app.use(require('./middleware/error'));
-
-module.exports = {
-
-    start: (port) => {
-        let usePort = port || process.env.PORT;
-        if ( isRunning ) {
-            throw Error ("Server is already running");
-        }
-        http = app.listen(usePort, () => {
-            isRunning = true;
-            console.log("Server up and running on port", usePort);
-        });
-    },
-
-    stop: () => {
-        if(! isRunning) {
-            throw Error("Server is already off");
-        }
-        if ( ! http ) {
-            throw Error("Invalid Server");
-        }
-
-        http.close( () => {
-           http = null;
-           isRunning = false;
-           console.log("Bye Bye");
-        });
-    }
-
-}
+require('dotenv').load();
+mongoose.Promise = require('bluebird');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/37Lab');
+require('./lib/server.js').start();

@@ -4,7 +4,8 @@
   "description": "401 JS --  Lab 37 auth/cookies ===",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/RyleeAndrews/lab-37-cookies#readme",
   "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
@@ -24,6 +27,7 @@
     "eslint-plugin-react": "^7.6.0",
     "express": "^4.16.2",
     "jest": "^22.1.4",
+    "jsonwebtoken": "^8.1.1",
     "mongo": "^0.1.0",
     "mongoose": "^5.0.2",
     "morgan": "^1.9.0",
