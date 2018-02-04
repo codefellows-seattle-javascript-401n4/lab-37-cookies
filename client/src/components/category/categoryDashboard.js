@@ -15,7 +15,12 @@ class Category extends React.Component {
     return(
       <div>
         <AuthDashboard>
-          <CatForm handler={this.props.categoryCreate}/>
+        <div className="header">
+          <div className="headerWords">Rylees Awesome Front and Back End App!!</div>
+          <div className="siteForm">
+            <CatForm handler={this.props.categoryCreate}/>
+          </div>
+          </div>
           <CatList cats={this.props.categories} update={this.props.categoryUpdate} delete={this.props.categoryDelete}/>
         </AuthDashboard>
       </div>

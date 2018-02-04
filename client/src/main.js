@@ -4,7 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import createStore from './lib/store.js';
 const store = createStore();
-import App from './component/app.js';
+import App from './components/app.js';
 
 class Main extends React.Component {
   constructor(props){

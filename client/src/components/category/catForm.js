@@ -36,9 +36,10 @@ class CatForm extends React.Component {
     console.log('cats', this.state.categoryID);
     return(
       <div>
-        <form onSubmit={this.onSubmit}>
+        <form className="catForm" onSubmit={this.onSubmit}>
           Add a Task Name:
           <input value={this.state.task} onChange={this.onChangeOfTask}/>
+          Add a Description:
           <input value={this.state.description} onChange={this.onChangeOfDescription}/>
           <button type="submit"> submit </button>
         </form>

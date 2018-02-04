@@ -16,6 +16,9 @@ li {
   z-index: -1;
 }
 
+input {
+  border-radius: 4px;
+}
 
 .siteForm {
   margin-top: 13px;
@@ -26,7 +29,7 @@ li {
 .header {
   border: 1px solid black;
   background-color: black;
-  color: #00C9B0;
+  color: black;
   height: 70px;
 }
 
@@ -36,6 +39,26 @@ li {
   font-size: 40px;
 }
 
-input {
-  border-radius: 4px;
+.authForm {
+  float: right;
+  background-color: black;
+  color: #00C9B0;
+}
+
+.authButton {
+  margin-top: 70px;
+  color: black;
+  background-color: #C488FF;
+}
+
+.home {
+  background-color: #00C9B0;
+}
+
+label {
+  color: white;
+}
+
+.catForm {
+  color: white;
 }

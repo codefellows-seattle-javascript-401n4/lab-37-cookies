@@ -12,7 +12,7 @@ let isRunning = false;
 app.use(morgan('dev'));
 app.use(
   cors({
-    origin: process.env.CORS_ORIGINS.split(' '),
+    origin: 'http://localhost:8080',
     credentials: true,
   })
 );
