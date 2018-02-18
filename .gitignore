@@ -1,2 +1,4 @@
-node_modules/
-/server/db/
+*node_modules/*
+.env
+db
+// test
