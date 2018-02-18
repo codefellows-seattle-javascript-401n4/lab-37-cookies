@@ -1,6 +1,9 @@
 401 JS --  Lab 37 auth/cookies
 ===
-**Forked and starting placeholder for submission.**
+**Needed for this project**
+- You need one terminal open for nodemon, webpack, and db.
+
+
 ## Submission Instructions
   * Work in a fork of this repository
   * Work in a branch on your fork
@@ -35,8 +38,8 @@ i
 * **src/style/_layout.scss** -- layout styles
 
 #### Feature Tasks
-* Create a frontend that follows react redux best pratices
-* Create a landing page that enables a user to singup or login
+* Create a frontend that follows react redux best practices
+* Create a landing page that enables a user to signup or login
 * Redirect the user to the dashboard page on signup or login
 * Store the users token in a cookie or localstorage on sign in
 
